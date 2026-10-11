@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: pause
+      POSTGRES_PASSWORD: pause_local
+      POSTGRES_DB: pause
+    ports:
+      - '127.0.0.1:5433:5432'
+    volumes:
+      - pause_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U pause -d pause']
+      interval: 5s
+      retries: 10
+volumes:
+  pause_pg:

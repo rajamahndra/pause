@@ -1,0 +1,24 @@
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { ArrowRight, ArrowUpRight, BookOpen, Heart, LockKeyhole, Leaf, Feather } from "lucide-react";
+import { Flower } from "@/components/flower";
+import { getArticles } from "@/lib/education";
+import { session } from "@/lib/server/security";
+import { PLAN_ENABLED } from "@/lib/features";
+export default async function Landing() {
+  if (await session()) redirect("/app");
+  return <main id="main">
+  <section className="hero page-width">
+    <div className="hero-copy"><span className="eyebrow"><span className="small-line"/> SEBUAH JEDA UNTUK DIRIMU</span><h1>Ambil jeda,<br/><em>untuk dirimu.</em></h1><p>Tidak semua hal perlu dipahami hari ini.<br className="desktop-break"/> Beri ruang untuk mengenal pengalamanmu,<br className="desktop-break"/> satu langkah kecil pada satu waktu.</p><div className="hero-actions"><Link className="button" href="/daftar">Mulai mencatat <ArrowUpRight size={18}/></Link><Link className="text-link" href="/edukasi">Jelajahi edukasi <ArrowRight size={17}/></Link></div><span className="quiet-note"><LockKeyhole size={14}/> Catatanmu pribadi. Ritmenya kamu yang tentukan.</span></div>
+    <div className="hero-art" aria-hidden="true"><span className="art-orbit"/><Flower className="hero-flower"/><div className="phone"><div className="phone-status"><span>9:41</span><span>▂▄▆ ▰</span></div><div className="phone-notch"/><span className="phone-eyebrow">JEDA KECIL HARI INI</span><h2>Tarik napas.<br/><em>Ambil ruang.</em></h2><div className="phone-breath"><span>perlahan saja</span></div><p>Kamu boleh mengikuti ritmemu sendiri.</p><div className="phone-button">Satu langkah kecil <ArrowRight size={14}/></div><span className="phone-home"/></div><span className="art-note">sedikit jeda,<br/><em>sedikit ruang.</em></span></div>
+  </section>
+  <div className="under-hero page-width"><span><Leaf size={16}/> Sesuai kenyamananmu</span><span><LockKeyhole size={16}/> Ruang pribadi, tanpa penilaian</span><span><Heart size={16}/> Tidak perlu sempurna</span></div>
+  <section className="section page-width"><div className="section-heading"><div><span className="eyebrow">MULAI DARI YANG KECIL</span><h2>Ruang untuk <em>prosesmu.</em></h2></div><p>Tidak ada urutan yang wajib.<br/>Pilih yang terasa mungkin hari ini.</p></div><div className="feature-grid">
+    <Link href="/edukasi" className="feature"><span className="feature-icon"><BookOpen size={24}/></span><span className="feature-no">01 / PAHAMI</span><h3>Mengenal, tanpa terburu.</h3><p>Bacaan singkat untuk memahami panik dan pilihan dukungan yang tersedia.</p><span className="feature-link">Masuk ke ruang belajar <ArrowUpRight size={19}/></span></Link>
+    <Link href="/app/jurnal/baru" className="feature"><span className="feature-icon peach-icon"><Feather size={24}/></span><span className="feature-no">02 / CERITAKAN</span><h3>Satu kalimat juga cukup.</h3><p>Catat pengalaman saat kamu sudah siap. Tidak perlu mengisi semuanya.</p><span className="feature-link">Buka jurnal pribadi <ArrowUpRight size={19}/></span></Link>
+    {PLAN_ENABLED && <Link href="/app/rencana" className="feature"><span className="feature-icon sage-icon"><Heart size={24}/></span><span className="feature-no">03 / SIAPKAN</span><h3>Dukungan, caramu sendiri.</h3><p>Simpan langkah yang terasa membantu dan orang yang ingin kamu hubungi.</p><span className="feature-link">Siapkan rencana <ArrowUpRight size={19}/></span></Link>}
+  </div></section>
+  <section className="gentle-banner page-width"><Flower/><div><span className="eyebrow">UNTUK SAAT INI</span><h2>Butuh ruang sebentar?</h2><p>Panduan sederhana yang bisa kamu ikuti, lewati, atau hentikan.</p></div><Link href="/bantuan" className="button">Bantu saya sekarang <ArrowUpRight size={18}/></Link></section>
+  <section className="section page-width"><div className="section-heading"><div><span className="eyebrow">SEDIKIT DEMI SEDIKIT</span><h2>Belajar <em>memahami.</em></h2></div><Link href="/edukasi" className="text-link">Semua bacaan <ArrowRight size={17}/></Link></div><div className="article-grid">{getArticles().slice(0, 3).map((a,i) => <Link className="article-preview" href={"/edukasi/" + a.slug} key={a.slug}><div className={"article-art art-" + i}><Flower/><span>pause / ruang belajar</span></div><span className="eyebrow">{a.category}</span><h3>{a.title}</h3><p>{a.excerpt}</p><span className="text-link">Baca perlahan <ArrowUpRight size={17}/></span></Link>)}</div></section>
+  <section className="closing page-width"><span className="eyebrow">TIDAK PERLU MENUNGGU SEMPURNA</span><h2>Kamu bisa mulai<br/><em>dari sini.</em></h2><p>Kenali ruangmu dulu. Demo tersedia tanpa membuat akun.</p><Link href="/demo" className="button">Lihat seperti apa Pause <ArrowUpRight size={18}/></Link></section>
+</main>; }

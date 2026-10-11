@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+}
+model User {
+  id String @id @default(uuid()) @db.Uuid
+  email String @unique
+  passwordHash String
+  nickname String? @db.VarChar(60)
+  timezone String @default("Asia/Makassar") @db.VarChar(100)
+  reducedMotion Boolean @default(false)
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
+  sessions Session[]
+  entries JournalEntry[]
+  plan SupportPlan?
+}
+model Session {
+  id String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid
+  tokenHash String @unique
+  csrfTokenHash String
+  expiresAt DateTime @db.Timestamptz
+  createdAt DateTime @default(now()) @db.Timestamptz
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+}
+model JournalEntry {
+  id String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid
+  title String? @db.VarChar(120)
+  occurredAt DateTime? @db.Timestamptz
+  occurredTimezone String? @db.VarChar(100)
+  sensations Json @default("[]") @db.JsonB
+  situation String?
+  narrative String?
+  takeaway String?
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  actions JournalAction[]
+  @@index([userId, occurredAt])
+  @@index([userId, createdAt])
+}
+model JournalAction {
+  id String @id @default(uuid()) @db.Uuid
+  entryId String @db.Uuid
+  actionKey String? @db.VarChar(80)
+  label String @db.VarChar(200)
+  helpful Boolean?
+  position Int
+  entry JournalEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  @@index([entryId])
+}
+model SupportPlan {
+  id String @id @default(uuid()) @db.Uuid
+  userId String @unique @db.Uuid
+  title String @db.VarChar(120)
+  reminder String?
+  preferredGuide String? @db.VarChar(10)
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  steps SupportPlanStep[]
+  contacts TrustedContact[]
+}
+model SupportPlanStep {
+  id String @id @default(uuid()) @db.Uuid
+  planId String @db.Uuid
+  text String @db.VarChar(300)
+  position Int
+  plan SupportPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  @@index([planId])
+}
+model TrustedContact {
+  id String @id @default(uuid()) @db.Uuid
+  planId String @db.Uuid
+  name String @db.VarChar(80)
+  phone String @db.VarChar(30)
+  position Int
+  plan SupportPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  @@index([planId])
+}

@@ -1,0 +1,1 @@
+export function safeReturn(value: unknown) { if(typeof value!=="string"||!/^\/app(?:\/|$)/.test(value)||value.includes("\\")||/[\u0000-\u0020]/.test(value))return "/app"; try{const parsed=new URL(value,"https://pause.local");return parsed.origin==="https://pause.local"?parsed.pathname+parsed.search:"/app";}catch{return "/app";} }

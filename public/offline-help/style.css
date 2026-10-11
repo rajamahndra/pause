@@ -1,0 +1,50 @@
+@font-face{font-family:DMSerif;src:url('/fonts/dm-serif-regular.woff2')}@font-face{font-family:DMSerif;src:url('/fonts/dm-serif-italic.woff2');font-style:italic}@font-face{font-family:DMSans;src:url('/fonts/dm-sans.woff2')}*{box-sizing:border-box}body{margin:0;background:#f8f5ec;color:#29312b;font:16px/1.7 DMSans,system-ui,sans-serif}header{max-width:800px;margin:auto;padding:22px;display:flex;justify-content:space-between;align-items:center}header a{color:#425844;text-decoration:none;min-height:44px;display:flex;align-items:center}.logo{font:32px DMSerif,Georgia,serif}main{max-width:650px;margin:24px auto;padding:0 24px 70px}h1,h2,h3{font-family:DMSerif,Georgia,serif;font-weight:400;line-height:1.2}h1{font-size:38px;letter-spacing:-.7px}h2{font-size:28px}p{color:#62665c}a{color:#425844}button,.button{font:inherit;min-height:44px;border:1px solid #425844;background:#425844;color:#fffcf5;padding:10px 20px;border-radius:28px;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;margin:5px}.outline{background:transparent;color:#425844}.actions{text-align:center;display:flex;justify-content:center;flex-wrap:wrap}.eyebrow{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#425844}.center{text-align:center}.panel{padding:28px;background:#e5e9d9;border-radius:22px;margin:30px 0}.circle{width:200px;height:200px;border-radius:50%;display:grid;place-items:center;margin:50px auto;color:#425844}.medical{margin-top:38px;border-top:1px solid #d9d9ca;padding-top:18px}.medical summary{min-height:44px;cursor:pointer;font-size:14px;color:#425844}.notice{background:#e9ecdf;padding:16px 20px;border-radius:14px;font-size:14px}.prose h2{margin-top:35px}.prose p{color:#29312b}.sources{font-size:14px;overflow-wrap:anywhere}.sources li{margin:12px 0}.download-item{padding:16px 0;border-bottom:1px solid #d9d9ca;display:flex;justify-content:space-between;gap:12px;align-items:center}.download-item a{overflow-wrap:anywhere}[hidden]{display:none!important}:focus-visible{outline:3px solid #425844;outline-offset:5px}@keyframes breathe{0%,100%{transform:scale(.85)}50%{transform:scale(1.08)}}
+.circle {
+  position: relative;
+}
+.breath-visual {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #bccbaa;
+  pointer-events: none;
+}
+.circle.running .breath-visual,
+.circle.running > span {
+  animation: breathe 8s ease-in-out infinite;
+}
+.circle > span {
+  position: relative;
+  z-index: 1;
+}
+.breath-motion {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: center;
+}
+.circle.running .breath-motion {
+  opacity: .7;
+}
+.circle[data-phase="inhale"] .breath-motion {
+  animation: breath-inward 4s ease-in-out both;
+}
+.circle[data-phase="exhale"] .breath-motion {
+  animation: breath-outward 4s ease-in-out both;
+}
+@keyframes breath-inward {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-180deg); }
+}
+@keyframes breath-outward {
+  from { transform: rotate(-180deg); }
+  to { transform: rotate(0deg); }
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}@media(max-width:400px){main{padding:0 20px 60px}h1{font-size:34px}header{padding:18px}button,.button{padding:10px 16px}}@media print{header,button,.actions{display:none}main{max-width:none}.notice{background:white}}

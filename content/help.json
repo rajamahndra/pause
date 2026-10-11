@@ -1,0 +1,22 @@
+{
+  "intro": "Ambil satu langkah sesuai kenyamananmu.",
+  "breath": "Bernapas lembut dan senyaman mungkin, tanpa memaksakan kedalaman napas. Tidak perlu menahan napas. Tempo ini boleh kamu abaikan.",
+  "discomfort": "Jika terasa tidak nyaman, kamu bisa berhenti atau memilih fokus ke sekitar.",
+  "steps": [
+    {
+      "title": "Rasakan tumpuanmu.",
+      "text": "Perhatikan kaki yang menyentuh lantai, atau tubuh yang ditopang kursi. Tidak perlu mengubah apa pun."
+    },
+    {
+      "title": "Lihat sekelilingmu.",
+      "text": "Perhatikan satu benda yang terlihat. Amati bentuk atau warnanya, sesuai kenyamananmu."
+    },
+    {
+      "title": "Dengarkan, bila nyaman.",
+      "text": "Perhatikan satu suara di sekitarmu. Kamu boleh melewati langkah ini."
+    }
+  ],
+  "medical": "Gejala panik dapat menyerupai kondisi lain. Jika ada nyeri dada berat atau menjalar, sesak berat sampai sulit berbicara, pingsan, atau gejala baru yang mengkhawatirkan, segera cari bantuan medis. Jangan menunggu panduan ini selesai.",
+  "medicalAction": "Minta bantuan orang terdekat atau layanan darurat setempat / IGD.",
+  "professional": "Jika pengalaman ini berulang atau mengganggu aktivitas, pertimbangkan berkonsultasi dengan dokter atau psikolog."
+}
