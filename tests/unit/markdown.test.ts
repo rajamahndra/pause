@@ -1,2 +1,9 @@
-import { it,expect } from "vitest";import { renderMarkdown } from "../../scripts/render-markdown.mjs";
-it("offline Markdown rejects raw HTML and unsafe links while preserving normal copy",async()=>{const html=await renderMarkdown('# Bacaan\n\n<script>alert("x")</script>\n\n<a onclick="bad()">HTML mentah</a>\n\n[Baca](javascript:alert(1))\n\nTeks **biasa**.');expect(html).not.toMatch(/<script|onclick|javascript:/);expect(html).toContain("<h1>Bacaan</h1>");expect(html).toContain("<strong>biasa</strong>");expect(html).not.toContain("<a onclick");});
+import { it, expect } from 'vitest';
+import { renderMarkdown } from '../../scripts/render-markdown.mjs';
+it('offline Markdown rejects raw HTML and unsafe links while preserving normal copy', async () => {
+  const html = await renderMarkdown('# Bacaan\n\n<script>alert("x")</script>\n\n<a onclick="bad()">HTML mentah</a>\n\n[Baca](javascript:alert(1))\n\nTeks **biasa**.');
+  expect(html).not.toMatch(/<script|onclick|javascript:/);
+  expect(html).toContain('<h1>Bacaan</h1>');
+  expect(html).toContain('<strong>biasa</strong>');
+  expect(html).not.toContain('<a onclick');
+});

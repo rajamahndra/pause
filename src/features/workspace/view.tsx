@@ -39,7 +39,9 @@ function EntryCard({ entry }: { entry: Entry }) {
           {!entry.sensations.length && <span className="hint">Sebuah ruang untuk refleksi</span>}
         </div>
       </div>
-      <span className="entry-card-action">Buka catatan <ArrowUpRight size={16} aria-hidden="true" /></span>
+      <span className="entry-card-action">
+        Buka catatan <ArrowUpRight size={16} aria-hidden="true" />
+      </span>
     </Link>
   );
 }
@@ -58,22 +60,30 @@ function Dashboard() {
           <em>Apa kabarmu hari ini?</em>
         </h1>
         <p>Tidak ada yang harus diselesaikan sekarang. Mulai saat kamu siap.</p>
-        {recent.data?.total === 0 && <p className="notice">{PLAN_ENABLED ? 'Catatanmu bersifat pribadi. Kamu boleh mulai dari jurnal, menyiapkan rencana, atau menjelajahi edukasi. Membuat rencana bisa dilewati.' : 'Catatanmu bersifat pribadi. Kamu boleh mulai dari jurnal atau menjelajahi edukasi.'}</p>}
+        {recent.data?.total === 0 && (
+          <p className="notice">
+            {PLAN_ENABLED
+              ? 'Catatanmu bersifat pribadi. Kamu boleh mulai dari jurnal, menyiapkan rencana, atau menjelajahi edukasi. Membuat rencana bisa dilewati.'
+              : 'Catatanmu bersifat pribadi. Kamu boleh mulai dari jurnal atau menjelajahi edukasi.'}
+          </p>
+        )}
         <Link href={base + '/jurnal/baru'} className="button">
           Catat pengalaman <Plus size={17} />
         </Link>
       </div>
-      {PLAN_ENABLED && <section className="panel panel-peach welcome-panel">
-        <div>
-          <span className="eyebrow">SATU LANGKAH PADA SATU WAKTU</span>
-          <h2 style={{ marginTop: 16 }}>{plan.data?.steps.length ? 'Dukungan yang kamu pilih.' : 'Siapkan ruang untuk dirimu.'}</h2>
-          <p>{plan.data?.reminder || 'Pilih langkah kecil dan pengingat yang ingin kamu simpan.'}</p>
-          <Link href={base + '/rencana'} className="text-link">
-            {plan.data?.steps.length ? 'Lihat rencanamu' : 'Buat rencana pribadi'} <ArrowRight size={17} />
-          </Link>
-        </div>
-        <Flower />
-      </section>}
+      {PLAN_ENABLED && (
+        <section className="panel panel-peach welcome-panel">
+          <div>
+            <span className="eyebrow">SATU LANGKAH PADA SATU WAKTU</span>
+            <h2 style={{ marginTop: 16 }}>{plan.data?.steps.length ? 'Dukungan yang kamu pilih.' : 'Siapkan ruang untuk dirimu.'}</h2>
+            <p>{plan.data?.reminder || 'Pilih langkah kecil dan pengingat yang ingin kamu simpan.'}</p>
+            <Link href={base + '/rencana'} className="text-link">
+              {plan.data?.steps.length ? 'Lihat rencanamu' : 'Buat rencana pribadi'} <ArrowRight size={17} />
+            </Link>
+          </div>
+          <Flower />
+        </section>
+      )}
       <div className="section-heading">
         <h2>Catatan terakhir</h2>
         <Link href={base + '/jurnal'} className="text-link">
